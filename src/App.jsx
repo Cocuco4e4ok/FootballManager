@@ -13,7 +13,7 @@ function App() {
     <Router>
       <NavBar />
       <Switch>
-        <Route exact path="/FootballManager/leagues" component={ContainerOfLeagues} />
+        <Route exact path="/FootballManager/" component={ContainerOfLeagues} />
         <Route exact path="/FootballManager/commands" component={ContainerOfCommands} />
         <Route path="/league/:slug" component={LeagueInfo} />
         <Route path="/commands/:slug" component={CommandInfo} />
