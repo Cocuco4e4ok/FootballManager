@@ -1,0 +1,33 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "max-len": [1, 140, 2, {
+            "ignorePattern": "^import\\s.+\\sfrom\\s.+;$",
+            "ignoreUrls": true
+          }],
+        "vue/max-attributes-per-line": "off",
+        "react/prop-types": "off",
+        "linebreak-style": 0,
+        "react/jsx-filename-extension": [0],
+        "import/extensions": "off",
+        "import/no-extraneous-dependencies": ["error",  {"devDependencies": true}],
+        "react/jsx-props-no-spreading": "off"
+    }
+}
