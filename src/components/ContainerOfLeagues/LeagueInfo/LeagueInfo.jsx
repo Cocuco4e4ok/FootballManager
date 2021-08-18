@@ -10,10 +10,12 @@ const LeagueInfo = () => {
   const [leagueInfo, setLeagueInfo] = useState({});
   const { slug } = useParams();
   const leagues = useSelector((state) => state.leagues);
+
   useEffect(() => {
     if (!leagues.length) {
       getLeaguesList()
-        .then(({ data: { competitions } }) => setLeagueInfo(competitions.find(({ id }) => id.toString() === slug)));
+        .then(({ data: { competitions } }) => setLeagueInfo(competitions.find(({ id }) => id.toString() === slug)))
+        .catch((err) => { throw new Error(err); });
     } else {
       setLeagueInfo(leagues.find(({ id }) => id.toString() === slug));
     }
@@ -30,6 +32,7 @@ const LeagueInfo = () => {
         startDate: leagueInfo.currentSeason.startDate,
         endDate: leagueInfo.currentSeason.endDate,
         currentMatchday: leagueInfo.currentSeason.currentMatchday,
+        compititionId: slug,
       }}
       />
       <LeagueStandings compititionId={slug} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './style.module.scss';
 
 const LeaguCard = ({ info }) => (
@@ -24,7 +25,9 @@ const LeaguCard = ({ info }) => (
       </span>
       <br />
       <img src={` ${info.areaFlag}`} alt="flag" />
+      <Link to={`/matches/${info.compititionId}`} className={styles.btnAllMatches}>{`Show all matches of ${info.name}`}</Link>
     </div>
+
   </div>
 );
 export default LeaguCard;

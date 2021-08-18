@@ -7,6 +7,7 @@ import ContainerOfLeagues from './components/ContainerOfLeagues';
 import ContainerOfCommands from './components/ContainerOfCommands';
 import LeagueInfo from './components/ContainerOfLeagues/LeagueInfo';
 import CommandInfo from './components/ContainerOfCommands/CommandTab/CommandInfo';
+import LeagueAllMatches from './components/ContainerOfLeagues/LeagueInfo/LeagueStandings/LeagueAllMatches';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/FootballManager/commands" component={ContainerOfCommands} />
         <Route path="/league/:slug" component={LeagueInfo} />
         <Route path="/commands/:slug" component={CommandInfo} />
+        <Route path="/matches/:slug" component={LeagueAllMatches} />
       </Switch>
     </Router>
   );

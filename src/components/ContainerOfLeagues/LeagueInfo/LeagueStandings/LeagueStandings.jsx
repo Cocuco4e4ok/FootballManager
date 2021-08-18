@@ -14,7 +14,7 @@ const LeagueStandings = ({ compititionId }) => {
 
   if (!matchesOfLeague.length) {
     return (
-      <div className={styles.leagueMatches}>Loading...</div>
+      <div className={styles.preloader}>Loading...</div>
     );
   }
   return (
