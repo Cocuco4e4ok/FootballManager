@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { useParams } from 'react-router-dom';
 import { getLeagueStandings } from '../../../../../api/metods';
-import LeagueMatch from '../LeagueMatch';
+import Match from '../Match';
 import styles from './style.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const LeagueAllMatches = () => {
   const { slug } = useParams();
   const [matchesOfLeague, setMatchesOfLeague] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
     if (!matchesOfLeague.length) {
@@ -18,24 +18,30 @@ const LeagueAllMatches = () => {
         .then(({ data: { matches } }) => setMatchesOfLeague(matches));
     }
   }, []);
+
   if (!matchesOfLeague.length) {
     return (
       <div className={styles.preloader}>Loading...</div>
     );
   }
-  let filteredMatches = [];
-  for (let i = Date.parse(startDate.toISOString().substr(0, 10)); i <= Date.parse(endDate.toISOString().substr(0, 10)); i += 86400000) {
-    filteredMatches = (matchesOfLeague.filter((match) => Date.parse(match.utcDate.substr(0, 10)) === i));
-  }
+
+  const newSetStartDate = (data) => {
+    setStartDate(new Date(data.getFullYear(), data.getMonth(), data.getDate(), 0, 0, 0));
+  };
+  const newSetEndDate = (data) => {
+    setEndDate(new Date(data.getFullYear(), data.getMonth(), data.getDate(), 23, 59, 59));
+  };
+
+  const filterByDate = () => matchesOfLeague.filter((match) => Date.parse(match.utcDate) >= Date.parse(startDate) && Date.parse(match.utcDate) <= Date.parse(endDate));
+
   return (
     <div className={styles.container}>
-
       <div className={styles.calendar}>
         <div className={styles.datepicker}>
           <span>Change start date</span>
           <ReactDatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={newSetStartDate}
             selectsStart
             startDate={startDate}
             endDate={endDate}
@@ -45,7 +51,7 @@ const LeagueAllMatches = () => {
           <span>Change end date</span>
           <ReactDatePicker
             selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            onChange={newSetEndDate}
             selectsEnd
             startDate={startDate}
             endDate={endDate}
@@ -54,8 +60,8 @@ const LeagueAllMatches = () => {
         </div>
       </div>
       <div>
-        {filteredMatches.map((item) => (
-          <LeagueMatch
+        {filterByDate().map((item) => (
+          <Match
             className={styles.kal}
             key={item.id}
             teamsInfo={{

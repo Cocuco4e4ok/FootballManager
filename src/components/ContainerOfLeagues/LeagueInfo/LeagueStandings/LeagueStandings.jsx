@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getLeagueStandings } from '../../../../api/metods';
-import LeagueMatch from './LeagueMatch';
+import LeagueMatch from './Match';
 import styles from './style.module.scss';
 
 const LeagueStandings = ({ compititionId }) => {

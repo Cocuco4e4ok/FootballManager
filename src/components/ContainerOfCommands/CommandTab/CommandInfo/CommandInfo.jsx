@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getComandsInfo } from '../../../../api/metods';
 import styles from './style.module.scss';
 
@@ -31,6 +31,7 @@ const CommandsInfo = () => {
       <div>
         <img src={`${commandInfo.crestUrl}`} alt="flag" />
       </div>
+      <Link className={styles.btnAllMatches} to={`/commands/${slug}/matches`}>Show all mathes of particular team</Link>
     </div>
   );
 };

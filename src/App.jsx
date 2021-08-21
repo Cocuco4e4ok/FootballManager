@@ -8,6 +8,7 @@ import ContainerOfCommands from './components/ContainerOfCommands';
 import LeagueInfo from './components/ContainerOfLeagues/LeagueInfo';
 import CommandInfo from './components/ContainerOfCommands/CommandTab/CommandInfo';
 import LeagueAllMatches from './components/ContainerOfLeagues/LeagueInfo/LeagueStandings/LeagueAllMatches';
+import CommandsAllMatch from './components/ContainerOfCommands/CommandTab/CommandInfo/CommandsAllMatch/CommandsAllMatch';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/league/:slug" component={LeagueInfo} />
         <Route path="/commands/:slug" component={CommandInfo} />
         <Route path="/matches/:slug" component={LeagueAllMatches} />
+        <Route path="/commands/:slug/matches" component={CommandsAllMatch} />
       </Switch>
     </Router>
   );

@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './style.module.scss';
 
-const LeagueMatch = ({ teamsInfo }) => {
+const Match = ({ teamsInfo }) => {
   const date = new Date(teamsInfo.date);
   return (
-    <div className={styles.leagueMatch}>
+    <div className={styles.Match}>
       <span>{`${teamsInfo.awayTeam} vs ${teamsInfo.homeTeam}`}</span>
       <span>{date.toDateString()}</span>
     </div>
   );
 };
 
-export default LeagueMatch;
+export default Match;
