@@ -10,22 +10,28 @@ const LeagueAllMatches = () => {
   const { slug } = useParams();
   const [matchesOfLeague, setMatchesOfLeague] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [endDate, setEndDate] = useState(new Date());
 
   useEffect(() => {
-    getLeagueStandings(slug)
-      .then(({ data: { matches } }) => setMatchesOfLeague(matches));
+    if (!matchesOfLeague.length) {
+      getLeagueStandings(slug)
+        .then(({ data: { matches } }) => setMatchesOfLeague(matches));
+    }
   }, []);
   if (!matchesOfLeague.length) {
     return (
       <div className={styles.preloader}>Loading...</div>
     );
   }
-
+  let filteredMatches = [];
+  for (let i = Date.parse(startDate.toISOString().substr(0, 10)); i <= Date.parse(endDate.toISOString().substr(0, 10)); i += 86400000) {
+    filteredMatches = (matchesOfLeague.filter((match) => Date.parse(match.utcDate.substr(0, 10)) === i));
+  }
   return (
     <div className={styles.container}>
+
       <div className={styles.calendar}>
-        <div>
+        <div className={styles.datepicker}>
           <span>Change start date</span>
           <ReactDatePicker
             selected={startDate}
@@ -33,10 +39,9 @@ const LeagueAllMatches = () => {
             selectsStart
             startDate={startDate}
             endDate={endDate}
-            className={styles.datepicker}
           />
         </div>
-        <div>
+        <div className={styles.datepicker}>
           <span>Change end date</span>
           <ReactDatePicker
             selected={endDate}
@@ -45,13 +50,11 @@ const LeagueAllMatches = () => {
             startDate={startDate}
             endDate={endDate}
             minDate={startDate}
-            className={styles.datepicker}
           />
         </div>
-
       </div>
       <div>
-        {matchesOfLeague.map((item) => (
+        {filteredMatches.map((item) => (
           <LeagueMatch
             className={styles.kal}
             key={item.id}
