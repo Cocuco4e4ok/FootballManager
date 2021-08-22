@@ -62,7 +62,6 @@ const LeagueAllMatches = () => {
       <div>
         {filterByDate().map((item) => (
           <Match
-            className={styles.kal}
             key={item.id}
             teamsInfo={{
               awayTeam: item.awayTeam.name,

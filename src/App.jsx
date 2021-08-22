@@ -19,8 +19,8 @@ function App() {
         <Route exact path="/FootballManager/commands" component={ContainerOfCommands} />
         <Route path="/league/:slug" component={LeagueInfo} />
         <Route path="/commands/:slug" component={CommandInfo} />
-        <Route path="/matches/:slug" component={LeagueAllMatches} />
-        <Route path="/commands/:slug/matches" component={CommandsAllMatch} />
+        <Route path="/matchesOfLeague/:slug" component={LeagueAllMatches} />
+        <Route path="/matchesOfCommands/:slug" component={CommandsAllMatch} />
       </Switch>
     </Router>
   );
