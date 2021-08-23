@@ -16,6 +16,9 @@
     margin-bottom: 30px;
     border: 1px solid black;
     border-radius: 10px;
+    @media (max-width: 576px)  {
+      flex-direction: column;
+    }
     .datepicker{
       span{
         padding-bottom: 5px;

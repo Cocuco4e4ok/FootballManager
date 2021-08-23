@@ -8,9 +8,15 @@ const LeagueStandings = ({ compititionId }) => {
   const curentMatches = matchesOfLeague.slice(1, 10);
 
   useEffect(() => {
+    let cleanupFunction = false;
     getLeagueStandings(compititionId)
-      .then(({ data: { matches } }) => setMatchOfLeague(matches))
+      .then(({ data: { matches } }) => {
+        if (!cleanupFunction) setMatchOfLeague(matches);
+      })
       .catch((err) => { console.log((err)); });
+    return () => {
+      cleanupFunction = true;
+    };
   }, []);
 
   if (!matchesOfLeague.length) {

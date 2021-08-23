@@ -14,11 +14,15 @@ const CommandsAllMatch = () => {
   const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
-    if (!matchesOfCommand.length) {
-      getCommandStandings(slug)
-        .then(({ data: { matches } }) => setMatchesOfCommand(matches))
-        .catch((err) => { console.log((err)); });
-    }
+    let cleanupFunction = false;
+    getCommandStandings(slug)
+      .then(({ data: { matches } }) => {
+        if (!cleanupFunction) setMatchesOfCommand(matches);
+      })
+      .catch((err) => { console.log((err)); });
+    return () => {
+      cleanupFunction = true;
+    };
   }, []);
 
   if (!matchesOfCommand.length) {

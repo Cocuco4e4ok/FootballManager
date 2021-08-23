@@ -13,11 +13,15 @@ const LeagueAllMatches = () => {
   const [endDate, setEndDate] = useState(null);
 
   useEffect(() => {
-    if (!matchesOfLeague.length) {
-      getLeagueStandings(slug)
-        .then(({ data: { matches } }) => setMatchesOfLeague(matches))
-        .catch((err) => { console.log((err)); });
-    }
+    let cleanupFunction = false;
+    getLeagueStandings(slug)
+      .then(({ data: { matches } }) => {
+        if (!cleanupFunction) setMatchesOfLeague(matches);
+      })
+      .catch((err) => { console.log((err)); });
+    return () => {
+      cleanupFunction = true;
+    };
   }, []);
 
   if (!matchesOfLeague.length) {
