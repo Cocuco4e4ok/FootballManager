@@ -9,7 +9,8 @@ const LeagueStandings = ({ compititionId }) => {
 
   useEffect(() => {
     getLeagueStandings(compititionId)
-      .then(({ data: { matches } }) => setMatchOfLeague(matches));
+      .then(({ data: { matches } }) => setMatchOfLeague(matches))
+      .catch((err) => { console.log((err)); });
   }, []);
 
   if (!matchesOfLeague.length) {

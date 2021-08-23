@@ -11,7 +11,8 @@ const CommandsInfo = () => {
   useEffect(() => {
     if (!commands.length) {
       getComandsInfo(slug)
-        .then(({ data }) => setCommandInfo(data));
+        .then(({ data }) => setCommandInfo(data))
+        .catch((err) => { console.log((err)); });
     } else {
       setCommandInfo(commands.find((item) => item.id.toString() === slug));
     }

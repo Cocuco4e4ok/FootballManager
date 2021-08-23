@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  BrowserRouter as Router, Route, Switch,
+  BrowserRouter as Router, Redirect, Route, Switch,
 } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import ContainerOfLeagues from './components/ContainerOfLeagues';
@@ -21,6 +21,7 @@ function App() {
         <Route path="/commands/:slug" component={CommandInfo} />
         <Route path="/matchesOfLeague/:slug" component={LeagueAllMatches} />
         <Route path="/matchesOfCommands/:slug" component={CommandsAllMatch} />
+        <Redirect to="/FootballManager/" />
       </Switch>
     </Router>
   );

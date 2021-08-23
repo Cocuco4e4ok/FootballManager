@@ -16,7 +16,8 @@ const CommandsAllMatch = () => {
   useEffect(() => {
     if (!matchesOfCommand.length) {
       getCommandStandings(slug)
-        .then(({ data: { matches } }) => setMatchesOfCommand(matches));
+        .then(({ data: { matches } }) => setMatchesOfCommand(matches))
+        .catch((err) => { console.log((err)); });
     }
   }, []);
 
@@ -33,9 +34,25 @@ const CommandsAllMatch = () => {
     setEndDate(new Date(data.getFullYear(), data.getMonth(), data.getDate(), 23, 59, 59));
   };
 
-  console.log(matchesOfCommand);
-
-  const filterByDate = () => matchesOfCommand.filter((match) => Date.parse(match.utcDate) >= Date.parse(startDate) && Date.parse(match.utcDate) <= Date.parse(endDate));
+  const filterByDate = () => {
+    const matches = matchesOfCommand.filter((match) => Date.parse(match.utcDate) >= Date.parse(startDate) && Date.parse(match.utcDate) <= Date.parse(endDate));
+    const matchesOfTeam = () => {
+      if (matches.length) {
+        return matches.map((item) => (
+          <Match
+            key={item.id}
+            teamsInfo={{
+              awayTeam: item.awayTeam.name,
+              homeTeam: item.homeTeam.name,
+              date: item.utcDate,
+            }}
+          />
+        ));
+      }
+      return <div>There are no matches in the selected period.</div>;
+    };
+    return matchesOfTeam();
+  };
   return (
     <div className={styles.container}>
       <div className={styles.calendar}>
@@ -62,16 +79,7 @@ const CommandsAllMatch = () => {
         </div>
       </div>
       <div>
-        {filterByDate().map((item) => (
-          <Match
-            key={item.id}
-            teamsInfo={{
-              awayTeam: item.awayTeam.name,
-              homeTeam: item.homeTeam.name,
-              date: item.utcDate,
-            }}
-          />
-        ))}
+        {filterByDate()}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const ContainerOfCommands = () => {
     if (!commands.length) {
       getCommandsList()
         .then(({ data: { teams } }) => dispatch(GETCommandsListTabResponse(teams)))
-        .catch((err) => { throw new Error(err); });
+        .catch((err) => { console.log((err)); });
     }
   }, []);
   if (!commands.length) {

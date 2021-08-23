@@ -15,7 +15,7 @@ const LeagueInfo = () => {
     if (!leagues.length) {
       getLeaguesList()
         .then(({ data: { competitions } }) => setLeagueInfo(competitions.find(({ id }) => id.toString() === slug)))
-        .catch((err) => { throw new Error(err); });
+        .catch((err) => { console.log((err)); });
     } else {
       setLeagueInfo(leagues.find(({ id }) => id.toString() === slug));
     }

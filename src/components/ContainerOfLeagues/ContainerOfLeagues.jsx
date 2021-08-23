@@ -20,7 +20,7 @@ const ContainerOfLeagues = () => {
             dispatch(GETLeagueListTabResponse(resultData));
           },
         )
-        .catch((err) => { throw new Error(err); });
+        .catch((err) => { console.log((err)); });
     }
   }, []);
   if (!leagues.length) {
