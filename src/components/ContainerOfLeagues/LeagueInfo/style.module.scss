@@ -7,3 +7,12 @@
   justify-content: space-evenly;
   align-items: flex-start;
 }
+.preloader{
+  display: flex;
+  position: relative;
+  top: 100px;
+  justify-content: center;
+  width: 100%;
+  padding: 30px;
+  font-size: 20px;
+}

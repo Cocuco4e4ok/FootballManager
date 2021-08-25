@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getComandsInfo } from '../../../../api/metods';
+import { ErrorMessage } from '../../../../store/action';
 import styles from './style.module.scss';
 
 const CommandsInfo = () => {
+  const dispatch = useDispatch();
   const [commandInfo, setCommandInfo] = useState([]);
   const commands = useSelector((state) => state.commands);
   const { slug } = useParams();
@@ -12,7 +14,7 @@ const CommandsInfo = () => {
     if (!commands.length) {
       getComandsInfo(slug)
         .then(({ data }) => setCommandInfo(data))
-        .catch((err) => { console.log((err)); });
+        .catch((err) => dispatch(ErrorMessage(`${err.message}. Try again later.`)));
     } else {
       setCommandInfo(commands.find((item) => item.id.toString() === slug));
     }

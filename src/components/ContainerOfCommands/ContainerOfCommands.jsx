@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getComandsList as getCommandsList } from '../../api/metods';
-import { GETCommandsListTabResponse } from '../../store/action';
+import { ErrorMessage, GETCommandsListTabResponse } from '../../store/action';
 import CommandTab from './CommandTab';
 import styles from './style.module.scss';
 
 const ContainerOfCommands = () => {
   const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.errors);
   const commands = useSelector((state) => state.commands);
   const [searchValue, setSearchValue] = useState('');
   const filteredCommands = commands.filter((command) => command.name.toLowerCase().includes(searchValue.toLowerCase()));
@@ -15,18 +16,22 @@ const ContainerOfCommands = () => {
     if (!commands.length) {
       getCommandsList()
         .then(({ data: { teams } }) => dispatch(GETCommandsListTabResponse(teams)))
-        .catch((err) => { console.log((err)); });
+        .catch((err) => dispatch(ErrorMessage(err.message)));
     }
   }, []);
-  if (!commands.length) {
+
+  if (!commands.length && !errorMessage.length) {
     return <div className={styles.preloader}>Loading...</div>;
   }
+
+  if (errorMessage.length) {
+    return <div>{errorMessage}</div>;
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.formInput}>
-        <form action="">
-          <input type="text" placeholder="Search" onChange={(event) => setSearchValue(event.target.value)} />
-        </form>
+      <div className={styles.filterByName}>
+        <input type="text" placeholder="Search" onChange={(event) => setSearchValue(event.target.value)} />
       </div>
       <div className={styles.containerOfCommands}>
         {filteredCommands.map((team) => (

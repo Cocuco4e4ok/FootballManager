@@ -7,3 +7,7 @@ export const GETLeagueListTabResponse = (value) => ({
 export const GETCommandsListTabResponse = (value) => ({
   type: types.GET_COMMANDS_LIST_RESPONSE, payload: value,
 });
+
+export const ErrorMessage = (value) => ({
+  type: types.ERROR, payload: value,
+});

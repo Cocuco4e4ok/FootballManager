@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCommandStandings } from '../../../../../api/metods';
 import styles from './style.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 import Match from '../../../../ContainerOfLeagues/LeagueInfo/LeagueStandings/Match';
+import { ErrorMessage } from '../../../../../store/action';
 
 const CommandsAllMatch = () => {
+  const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.errors);
   const { slug } = useParams();
   const [matchesOfCommand, setMatchesOfCommand] = useState([]);
   const [startDate, setStartDate] = useState(null);
@@ -18,16 +22,20 @@ const CommandsAllMatch = () => {
       .then(({ data: { matches } }) => {
         if (!cleanupFunction) setMatchesOfCommand(matches);
       })
-      .catch((err) => { console.log((err)); });
+      .catch((err) => dispatch(ErrorMessage(err.message)));
     return () => {
       cleanupFunction = true;
     };
   }, []);
 
-  if (!matchesOfCommand.length) {
+  if (!matchesOfCommand.length && !errorMessage.length) {
     return (
       <div className={styles.preloader}>Loading...</div>
     );
+  }
+
+  if (errorMessage.length) {
+    return <div>{errorMessage}</div>;
   }
 
   const newSetStartDate = (data) => {

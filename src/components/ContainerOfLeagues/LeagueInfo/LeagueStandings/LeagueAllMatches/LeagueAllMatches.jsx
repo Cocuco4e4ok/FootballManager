@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import ReactDatePicker from 'react-datepicker';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { getLeagueStandings } from '../../../../../api/metods';
 import Match from '../Match';
 import styles from './style.module.scss';
 import 'react-datepicker/dist/react-datepicker.css';
+import { ErrorMessage } from '../../../../../store/action';
 
 const LeagueAllMatches = () => {
+  const dispatch = useDispatch();
+  const errorMessage = useSelector((state) => state.errors);
   const { slug } = useParams();
   const [matchesOfLeague, setMatchesOfLeague] = useState([]);
   const [startDate, setStartDate] = useState(null);
@@ -18,16 +22,20 @@ const LeagueAllMatches = () => {
       .then(({ data: { matches } }) => {
         if (!cleanupFunction) setMatchesOfLeague(matches);
       })
-      .catch((err) => { console.log((err)); });
+      .catch((err) => dispatch(ErrorMessage(`${err.message}. Try again later.`)));
     return () => {
       cleanupFunction = true;
     };
   }, []);
 
-  if (!matchesOfLeague.length) {
+  if (!matchesOfLeague.length && !errorMessage.length) {
     return (
       <div className={styles.preloader}>Loading...</div>
     );
+  }
+
+  if (errorMessage.length) {
+    return <div className={styles.preloader}>{errorMessage}</div>;
   }
 
   const newSetStartDate = (data) => {
