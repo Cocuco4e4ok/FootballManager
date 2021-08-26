@@ -16,11 +16,11 @@ function App() {
       <NavBar />
       <Switch>
         <Route exact path="/FootballManager/" component={ContainerOfLeagues} />
-        <Route exact path="/FootballManager/commands" component={ContainerOfCommands} />
-        <Route path="/league/:slug" component={LeagueInfo} />
-        <Route path="/commands/:slug" component={CommandInfo} />
-        <Route path="/matchesOfLeague/:slug" component={LeagueAllMatches} />
-        <Route path="/matchesOfCommands/:slug" component={CommandsAllMatch} />
+        <Route exact path="/FootballManager/commands/" component={ContainerOfCommands} />
+        <Route path="/league/:slug/" component={LeagueInfo} />
+        <Route path="/commands/:slug/" component={CommandInfo} />
+        <Route path="/matchesOfLeague/:slug/" component={LeagueAllMatches} />
+        <Route path="/matchesOfCommands/:slug/" component={CommandsAllMatch} />
         <Redirect to="/FootballManager/" />
       </Switch>
     </Router>

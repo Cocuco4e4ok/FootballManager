@@ -25,7 +25,7 @@ const LeaguCard = ({ info }) => (
       </span>
       <br />
       <img src={` ${info.areaFlag}`} alt="flag" />
-      <Link to={`/matchesOfLeague/${info.compititionId}`} className={styles.btnAllMatches}>{`Show all matches of ${info.name}`}</Link>
+      <Link to={`/matchesOfLeague/${info.compititionId}/`} className={styles.btnAllMatches}>{`Show all matches of ${info.name}`}</Link>
     </div>
 
   </div>

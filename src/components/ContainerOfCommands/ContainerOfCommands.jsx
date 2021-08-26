@@ -25,7 +25,7 @@ const ContainerOfCommands = () => {
   }
 
   if (errorMessage.length) {
-    return <div>{errorMessage}</div>;
+    return <div className={styles.preloader}>{errorMessage}</div>;
   }
 
   return (
@@ -35,7 +35,7 @@ const ContainerOfCommands = () => {
       </div>
       <div className={styles.containerOfCommands}>
         {filteredCommands.map((team) => (
-          <Link to={`/commands/${team.id}`} key={team.id} id={team.id}>
+          <Link to={`/commands/${team.id}/`} key={team.id} id={team.id}>
             <CommandTab
               key={team.id}
               info={{ name: team.shortName, flag: team.crestUrl }}

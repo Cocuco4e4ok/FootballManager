@@ -40,7 +40,7 @@ const ContainerOfLeagues = () => {
       </div>
       <div className={styles.containerOfLeagues}>
         {filteredLeagues.map((item) => (
-          <Link to={`/league/${item.id}`} key={item.id} className={styles.leagueCard} id={item.id}>
+          <Link to={`/league/${item.id}/`} key={item.id} className={styles.leagueCard} id={item.id}>
             <div className={styles.leagueCard__name}>
               {item.name}
             </div>

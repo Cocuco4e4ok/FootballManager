@@ -34,7 +34,7 @@ const CommandsInfo = () => {
       <div>
         <img src={`${commandInfo.crestUrl}`} alt="flag" />
       </div>
-      <Link className={styles.btnAllMatches} to={`/matchesOfCommands/${slug}`}>Show all mathes of particular team</Link>
+      <Link className={styles.btnAllMatches} to={`/matchesOfCommands/${slug}/`}>Show all mathes of particular team</Link>
     </div>
   );
 };
